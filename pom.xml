@@ -32,18 +32,18 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Hibernate Validator -->
+        <!-- Hibernate Validator (Updated Version) -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>7.0.4</version> <!-- specify version -->
+            <version>6.2.0.Final</version> <!-- Updated version -->
         </dependency>
 
-        <!-- Javax Validation API -->
+        <!-- Javax Validation API (Updated Version) -->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>javax.validation-api</artifactId>
-            <version>2.0.1.Final</version> <!-- specify version -->
+            <version>2.0.1.Final</version> <!-- Version is correct, no change needed -->
         </dependency>
 
         <!-- Spring Boot Starter Validation -->
