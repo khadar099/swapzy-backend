@@ -28,9 +28,9 @@ Follow these steps to set up the backend locally on your machine:
 1. Clone the Repository
 bash
 Copy
-git clone https://github.com/yourusername/swapzy-backend.git
+git clone https://github.com/khadar099/swapzy-backend.git
 cd swapzy-backend
-2. Set Up the Database
+3. Set Up the Database
 Install MySQL/PostgreSQL (or use an existing database).
 Create a new database (e.g., swapzy_db).
 Configure the database connection in src/main/resources/application.properties or application.yml.
