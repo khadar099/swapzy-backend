@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,19 +15,22 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
+    // Security configuration using SecurityFilterChain (no WebSecurityConfigurerAdapter)
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/login", "/register").permitAll()  // Allow login and register pages for all
-                .anyRequest().authenticated()  // All other pages require authentication
+                .antMatchers("/login", "/register").permitAll() // Allow access to login and register pages
+                .anyRequest().authenticated() // All other requests require authentication
             .and()
-            .formLogin().loginPage("/login")
+            .formLogin().loginPage("/login") // Set custom login page
             .and()
-            .logout().permitAll();
+            .logout().permitAll(); // Allow logout for all users
+
         return http.build();
     }
 
+    // A simple in-memory UserDetailsService for demo purposes
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> {
@@ -42,6 +44,7 @@ public class WebSecurityConfig {
         };
     }
 
+    // Password encoder bean
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
