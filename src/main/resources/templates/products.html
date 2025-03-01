@@ -1,0 +1,10 @@
+<html>
+<body>
+    <h2>Available Products</h2>
+    <ul>
+        <th:block th:each="product : ${products}">
+            <li th:text="${product.name}"></li>
+        </th:block>
+    </ul>
+</body>
+</html>
