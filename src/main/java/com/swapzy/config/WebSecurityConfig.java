@@ -7,11 +7,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableWebSecurity
 public class WebSecurityConfig {
-    
-    // Removed @EnableWebSecurity, it's automatically handled by Spring Boot
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -22,15 +23,15 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/register", "/login").permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers("/register", "/login").permitAll() // allow access to register and login pages
+                .anyRequest().authenticated() // all other requests require authentication
             .and()
             .formLogin()
-                .loginPage("/login")
-                .permitAll()
+                .loginPage("/login") // custom login page
+                .permitAll() // allow everyone to access login page
             .and()
             .logout()
-                .permitAll();
+                .permitAll(); // allow logout for everyone
 
         return http.build();
     }
