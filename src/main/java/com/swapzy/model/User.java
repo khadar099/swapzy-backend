@@ -1,7 +1,6 @@
 package com.swapzy.model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -12,16 +11,16 @@ public class User {
     private Long id;
 
     private String username;
-    private String password;
-    private String email;
+    private String password; // Ensure this field exists
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "user_roles", 
-        joinColumns = @JoinColumn(name = "user_id"), 
-        inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles;
+    // Getters and setters
+    public String getPassword() {
+        return password;
+    }
 
-    // Getters and Setters
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    // Other fields and methods
 }
