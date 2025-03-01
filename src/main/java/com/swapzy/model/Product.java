@@ -12,11 +12,19 @@ public class Product {
 
     private String name;
     private String description;
-    private Double price;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id")  // Foreign key column for the User association
     private User user;
 
-    // Getters and Setters
+    // Getters and setters
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    // Other fields and methods
 }
