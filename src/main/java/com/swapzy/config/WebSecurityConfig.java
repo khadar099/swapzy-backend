@@ -3,49 +3,35 @@ package com.swapzy.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
 public class WebSecurityConfig {
+    
+    // Removed @EnableWebSecurity, it's automatically handled by Spring Boot
 
-    // Security configuration using SecurityFilterChain (no WebSecurityConfigurerAdapter)
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .requestMatchers("/login", "/register").permitAll() // Use requestMatchers() instead of antMatchers()
-                .anyRequest().authenticated() // All other requests require authentication
+                .antMatchers("/register", "/login").permitAll()
+                .anyRequest().authenticated()
             .and()
-            .formLogin().loginPage("/login") // Set custom login page
+            .formLogin()
+                .loginPage("/login")
+                .permitAll()
             .and()
-            .logout().permitAll(); // Allow logout for all users
+            .logout()
+                .permitAll();
 
         return http.build();
-    }
-
-    // A simple in-memory UserDetailsService for demo purposes
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return username -> {
-            if ("admin".equals(username)) {
-                return User.withUsername("admin")
-                    .password(passwordEncoder().encode("password"))
-                    .roles("ADMIN")
-                    .build();
-            }
-            throw new UsernameNotFoundException("User not found");
-        };
-    }
-
-    // Password encoder bean
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }
