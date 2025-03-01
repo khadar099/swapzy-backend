@@ -83,19 +83,20 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- JPA and Hibernate for @Entity and @Table annotations -->
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>javax.persistence-api</artifactId>
-            <version>2.2</version>
-        </dependency>
-        
-        <!-- Hibernate ORM for JPA -->
+        <!-- Hibernate ORM for JPA (Use Jakarta Persistence API in Spring Boot 3.x) -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>5.6.10.Final</version>
         </dependency>
+        
+        <!-- Jakarta Persistence API (Use jakarta.persistence for Spring Boot 3.x) -->
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
