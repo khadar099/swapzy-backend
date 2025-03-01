@@ -3,7 +3,6 @@ package com.swapzy.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,7 +19,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/login", "/register").permitAll() // Allow access to login and register pages
+                .requestMatchers("/login", "/register").permitAll() // Use requestMatchers() instead of antMatchers()
                 .anyRequest().authenticated() // All other requests require authentication
             .and()
             .formLogin().loginPage("/login") // Set custom login page
